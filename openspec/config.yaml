@@ -1,0 +1,68 @@
+schema: spec-driven
+
+context: |
+  Project name: Pinus
+
+  Product:
+    Pinus is a private shared memory map for couples.
+    Users connect as a couple and create location-based memory and plan pins.
+
+  Technology:
+    - Mobile: Flutter
+    - State management: Riverpod
+    - Navigation: GoRouter
+    - Backend: NestJS modular monolith
+    - ORM: Prisma
+    - Database: PostgreSQL with PostGIS
+    - Storage: S3-compatible private object storage
+    - Notifications: Firebase Cloud Messaging
+    - Realtime: WebSocket
+    - Infrastructure: Docker and GitHub Actions
+
+  Architecture:
+    - Build from scratch.
+    - Use a modular monolith.
+    - Do not introduce microservices without owner approval.
+    - Prefer reversible and simple solutions.
+    - Do not add Redis until a concrete requirement needs it.
+
+  Decision ownership:
+    The owner makes final decisions for:
+    - Product scope and business rules
+    - Privacy and data retention
+    - Security model
+    - Authentication strategy
+    - Infrastructure providers
+    - Dependencies with high migration cost
+    - Public API breaking changes
+    - Destructive database migrations
+    - Recurring costs and vendor lock-in
+
+    AI may autonomously decide:
+    - Naming and code organization
+    - Boilerplate implementation
+    - Standard validation
+    - Loading, empty, and error states
+    - Tests, mocks, fixtures, and seeds
+    - Logging and documentation
+    - Safe refactors that do not change behavior
+    - Common indexes and transactions
+    - Reversible implementation details
+
+    AI must request approval before:
+    - Changing an approved requirement
+    - Adding a major dependency
+    - Changing privacy or security behavior
+    - Creating destructive migrations
+    - Adding features outside the active change
+    - Making an option expensive to reverse
+
+  Documentation:
+    - Product proposal: docs/product/product-proposal.md
+    - Product roadmap: docs/product/roadmap.md
+    - Decision policy: docs/product/decision-policy.md
+
+  Language:
+    - Discuss decisions with the owner in Vietnamese.
+    - Source code identifiers must use English.
+    - OpenSpec artifacts may use English for technical consistency.
