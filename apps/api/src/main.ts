@@ -21,6 +21,7 @@ async function bootstrap() {
     .setTitle('Pinus API')
     .setDescription('Local Pinus backend API')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   SwaggerModule.setup(
     'docs',

@@ -28,9 +28,15 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         : HttpStatus.INTERNAL_SERVER_ERROR;
     const body =
       exception instanceof HttpException ? exception.getResponse() : undefined;
+    const explicitErrorId =
+      body && typeof body === 'object' && 'errorId' in body
+        ? String(body.errorId)
+        : undefined;
     response.status(status).json({
       statusCode: status,
-      errorId: status === 500 ? 'INTERNAL_SERVER_ERROR' : `HTTP_${status}`,
+      errorId:
+        explicitErrorId ??
+        (status === 500 ? 'INTERNAL_SERVER_ERROR' : `HTTP_${status}`),
       message: this.messageFor(status, body),
       path: request.originalUrl ?? request.url,
       timestamp: new Date().toISOString(),

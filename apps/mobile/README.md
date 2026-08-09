@@ -1,17 +1,16 @@
-# pinus_mobile
+# Pinus mobile
 
-A new Flutter project.
+Flutter client using Riverpod, GoRouter, Dio, and secure platform token storage.
 
-## Getting Started
+## Local setup
 
-This project is a starting point for a Flutter application.
+Run from `apps/mobile`:
 
-A few resources to get you started if this is your first Flutter project:
+```shell
+flutter pub get
+flutter run --dart-define=API_BASE_URL=http://10.0.2.2:3000
+```
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+Use `http://localhost:3000` for an iOS simulator. Tokens are stored as one versioned value through `SecureTokenStorage`, backed by Keychain on iOS and secure encrypted platform storage on Android. They are never stored in preferences or logged.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The authenticated Dio client attaches access tokens only to protected endpoints. Concurrent 401 responses share one refresh operation, persist the rotated pair before retry, and retry each request once. Permanent refresh rejection clears local authentication; transient network failure preserves the stored pair. This foundation intentionally contains no login or registration UI and no social-provider SDK.

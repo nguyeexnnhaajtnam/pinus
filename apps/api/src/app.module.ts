@@ -4,6 +4,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { validateEnvironment } from './config/environment';
 import { DatabaseModule } from './database/database.module';
 import { HealthModule } from './health/health.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,12 +28,19 @@ import { HealthModule } from './health/health.module';
             'req.headers.cookie',
             'password',
             'DATABASE_URL',
+            'req.body.refreshToken',
+            'refreshToken',
+            'accessToken',
+            'refreshTokenHash',
+            'JWT_ACCESS_SECRET',
+            'JWT_REFRESH_SECRET',
           ],
           censor: '[REDACTED]',
         },
       },
     }),
     DatabaseModule,
+    AuthModule,
     HealthModule,
   ],
 })
