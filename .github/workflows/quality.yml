@@ -31,6 +31,8 @@ jobs:
       JWT_REFRESH_SECRET: ci-refresh-secret-at-least-32-characters-long
       JWT_ISSUER: pinus-ci
       JWT_AUDIENCE: pinus-mobile-ci
+      GOOGLE_AUTH_AUDIENCES: pinus-google-ci.apps.googleusercontent.com
+      APPLE_AUTH_AUDIENCES: com.pinus.pinusMobile.ci
     defaults:
       run:
         working-directory: apps/api
@@ -67,4 +69,7 @@ jobs:
       - run: dart format --output=none --set-exit-if-changed lib test
       - run: flutter analyze
       - run: flutter test
-      - run: flutter build apk --debug --dart-define=API_BASE_URL=http://10.0.2.2:3000
+      - run: >-
+          flutter build apk --debug
+          --dart-define=API_BASE_URL=http://10.0.2.2:3000
+          --dart-define=GOOGLE_SERVER_CLIENT_ID=pinus-google-ci.apps.googleusercontent.com

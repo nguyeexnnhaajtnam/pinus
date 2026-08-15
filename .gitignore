@@ -13,6 +13,7 @@ apps/mobile/build/
 apps/mobile/coverage/
 apps/mobile/.flutter-plugins*
 apps/mobile/android/local.properties
+apps/mobile/config/*.local.json
 .idea/
 *.iml
 .vscode/

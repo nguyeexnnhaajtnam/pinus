@@ -5,6 +5,7 @@ import { validateEnvironment } from './config/environment';
 import { DatabaseModule } from './database/database.module';
 import { HealthModule } from './health/health.module';
 import { AuthModule } from './auth/auth.module';
+import { LOG_REDACTION_PATHS } from './common/log-redaction';
 
 @Module({
   imports: [
@@ -23,18 +24,7 @@ import { AuthModule } from './auth/auth.module';
         },
         customProps: (request) => ({ correlationId: request.id }),
         redact: {
-          paths: [
-            'req.headers.authorization',
-            'req.headers.cookie',
-            'password',
-            'DATABASE_URL',
-            'req.body.refreshToken',
-            'refreshToken',
-            'accessToken',
-            'refreshTokenHash',
-            'JWT_ACCESS_SECRET',
-            'JWT_REFRESH_SECRET',
-          ],
+          paths: [...LOG_REDACTION_PATHS],
           censor: '[REDACTED]',
         },
       },

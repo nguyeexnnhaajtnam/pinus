@@ -8,6 +8,14 @@ import { AuthService } from './auth.service';
 import { SessionRepository } from './session.repository';
 import { TokenService } from './token.service';
 import { CurrentSignOutGuard } from './current-sign-out.guard';
+import { AppleIdentityTokenVerifier } from './social/apple-identity.verifier';
+import { GoogleIdentityTokenVerifier } from './social/google-identity.verifier';
+import { SocialAuthService } from './social/social-auth.service';
+import { SocialIdentityRepository } from './social/social-identity.repository';
+import {
+  APPLE_IDENTITY_VERIFIER,
+  GOOGLE_IDENTITY_VERIFIER,
+} from './social/social.types';
 
 @Module({
   imports: [JwtModule.register({})],
@@ -20,6 +28,18 @@ import { CurrentSignOutGuard } from './current-sign-out.guard';
     AuthRateLimiter,
     SessionRepository,
     TokenService,
+    GoogleIdentityTokenVerifier,
+    AppleIdentityTokenVerifier,
+    {
+      provide: GOOGLE_IDENTITY_VERIFIER,
+      useExisting: GoogleIdentityTokenVerifier,
+    },
+    {
+      provide: APPLE_IDENTITY_VERIFIER,
+      useExisting: AppleIdentityTokenVerifier,
+    },
+    SocialIdentityRepository,
+    SocialAuthService,
   ],
   exports: [AuthService, AuthGuard],
 })

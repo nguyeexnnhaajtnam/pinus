@@ -9,6 +9,8 @@ export interface ValidatedEnvironment {
   JWT_REFRESH_SECRET: string;
   JWT_ISSUER: string;
   JWT_AUDIENCE: string;
+  GOOGLE_AUTH_AUDIENCES: string[];
+  APPLE_AUTH_AUDIENCES: string[];
 }
 
 function stringValue(value: unknown, fallback = ''): string {
@@ -49,6 +51,14 @@ export function validateEnvironment(
   }
   const jwtIssuer = requiredString(values.JWT_ISSUER, 'JWT_ISSUER');
   const jwtAudience = requiredString(values.JWT_AUDIENCE, 'JWT_AUDIENCE');
+  const googleAuthAudiences = requiredList(
+    values.GOOGLE_AUTH_AUDIENCES,
+    'GOOGLE_AUTH_AUDIENCES',
+  );
+  const appleAuthAudiences = requiredList(
+    values.APPLE_AUTH_AUDIENCES,
+    'APPLE_AUTH_AUDIENCES',
+  );
   return {
     NODE_ENV: nodeEnvironment as AppEnvironment,
     PORT: port,
@@ -58,7 +68,18 @@ export function validateEnvironment(
     JWT_REFRESH_SECRET: jwtRefreshSecret,
     JWT_ISSUER: jwtIssuer,
     JWT_AUDIENCE: jwtAudience,
+    GOOGLE_AUTH_AUDIENCES: googleAuthAudiences,
+    APPLE_AUTH_AUDIENCES: appleAuthAudiences,
   };
+}
+
+function requiredList(value: unknown, name: string): string[] {
+  const result = requiredString(value, name)
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+  if (result.length === 0) throw new Error(`${name} is required`);
+  return result;
 }
 
 function requiredString(value: unknown, name: string): string {

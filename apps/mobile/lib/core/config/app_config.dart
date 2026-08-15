@@ -1,13 +1,28 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AppConfig {
-  const AppConfig({required this.apiBaseUrl});
+  const AppConfig({
+    required this.apiBaseUrl,
+    this.googleServerClientId,
+    this.appleSignInEnabled = false,
+  });
   final Uri apiBaseUrl;
+  final String? googleServerClientId;
+  final bool appleSignInEnabled;
 
-  factory AppConfig.fromEnvironment() =>
-      AppConfig.fromRaw(const String.fromEnvironment('API_BASE_URL'));
+  factory AppConfig.fromEnvironment() => AppConfig.fromRaw(
+    const String.fromEnvironment('API_BASE_URL'),
+    googleServerClientId: const String.fromEnvironment(
+      'GOOGLE_SERVER_CLIENT_ID',
+    ),
+    appleSignInEnabled: const bool.fromEnvironment('ENABLE_APPLE_SIGN_IN'),
+  );
 
-  factory AppConfig.fromRaw(String rawUrl) {
+  factory AppConfig.fromRaw(
+    String rawUrl, {
+    String? googleServerClientId,
+    bool appleSignInEnabled = false,
+  }) {
     if (rawUrl.trim().isEmpty) {
       throw const FormatException('API_BASE_URL is required');
     }
@@ -20,7 +35,14 @@ class AppConfig {
         'API_BASE_URL must be an absolute HTTP(S) URL',
       );
     }
-    return AppConfig(apiBaseUrl: uri);
+    final googleId = googleServerClientId?.trim();
+    return AppConfig(
+      apiBaseUrl: uri,
+      googleServerClientId: googleId == null || googleId.isEmpty
+          ? null
+          : googleId,
+      appleSignInEnabled: appleSignInEnabled,
+    );
   }
 }
 

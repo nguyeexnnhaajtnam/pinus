@@ -22,7 +22,6 @@ It allows two people to build a shared map of memories, plans, and private momen
 - **Plan Pin**: A place or activity the couple wants to experience.
 - **Secret Pin**: A Pin that unlocks only when a location condition is met.
 - **Time Capsule**: A Pin that unlocks only at a specified date and time.
-- **Question Pin**: A question, prompt, or challenge for the partner.
 
 ### Core Product Value
 
@@ -31,6 +30,89 @@ Pinus combines:
 > Location + time + private content + interaction between two people.
 
 Pinus is not intended to replace chat applications or public social networks. Its core value is to provide a private space where a couple can build, revisit, and preserve the history of their relationship.
+
+### Shared Space
+
+A Shared Space belongs to a couple and represents the private world shared by the two connected users.
+
+The Living Shared Map is the primary representation of that world. Memories, Plans, Secrets, and Time Capsules progressively add meaning to it through accumulated places, moments, future intentions, and location- or time-based content. The map is not a generic location browser or travel-discovery surface.
+
+Timeline is the temporal view of the same Shared Space content represented spatially on the map:
+
+- Map communicates where Pins belong or happen.
+- Timeline communicates when Pins happened or will happen.
+
+Timeline is not an independent content model, social feed, or public feed.
+
+### Living Canvas
+
+The Shared Space uses a Living Canvas experience model. It should feel like one continuous living environment rather than a collection of unrelated modules.
+
+The Living Shared Map is the primary canvas. Pin interactions, Timeline transitions, and content inspection should preserve Shared Space context whenever practical. This does not require every interaction to use overlays: full-screen views may be used when content complexity, platform behavior, or accessibility makes them clearer.
+
+Continuity of Shared Space context is the invariant; a specific presentation container is not.
+
+Map and Timeline should preserve the selected Pin and relevant filtering context when practical. A Timeline item may reveal the same Pin on Map, and switching from a selected map Pin to Timeline should keep that Pin identifiable.
+
+Timeline uses a compact chronological hierarchy such as Year → Month → Pin moments. It may include past Memories, future Plans, and locked, upcoming, ready, or unlocked Secret and Time Capsule entries. Protected content remains hidden according to its current state.
+
+### Pairing Metaphor
+
+Pinus uses Two Signals as its main connection metaphor: two independent people connect, form one Shared Space, and begin building their shared world. This metaphor may influence pairing interaction, motion, visual storytelling, and connection states, but it does not add or change product behavior.
+
+---
+
+## Couple Onboarding Flow
+
+### Create a new shared space
+
+1. Welcome / Login
+2. Minimal Profile Setup
+3. Couple Entry
+4. Create Our Space
+5. Choose World Style
+6. Generate Invitation
+7. Pairing / Waiting
+8. Connection Success
+9. Living Shared Map
+
+### Join an existing shared space
+
+1. Welcome / Login
+2. Minimal Profile Setup
+3. Couple Entry
+4. Enter Invitation Code
+5. Load Invitation / Shared Space
+6. Preview Selected World Style
+7. Accept Invitation
+8. Connection Success
+9. Living Shared Map
+
+World Style is selected when the shared space is created.
+
+The selected World Style belongs to the couple/shared space and is shared by both partners.
+
+## World Style
+
+A shared couple space has one active World Style.
+
+Initial planned styles:
+
+- Path
+- Orbit
+- Bloom
+
+The creating partner selects the initial World Style.
+
+The invited partner joins the same World Style.
+
+All three planned World Styles are available normally. Path, Orbit, and Bloom are not premium-restricted.
+
+World Style is selected before invitation generation, so the invitation is associated with the selected Shared Space and its World Style.
+
+World Style may later be changed from `Profile → Our Space → World Style`.
+
+No premium-only switching, purchase requirement, change limit, or cooldown applies unless a future approved requirement introduces one.
 
 ---
 

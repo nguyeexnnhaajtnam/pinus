@@ -9,6 +9,8 @@ describe('validateEnvironment', () => {
     JWT_REFRESH_SECRET: 'refresh-test-secret-at-least-32-characters',
     JWT_ISSUER: 'pinus-test',
     JWT_AUDIENCE: 'pinus-mobile-test',
+    GOOGLE_AUTH_AUDIENCES: 'google-one,google-two',
+    APPLE_AUTH_AUDIENCES: 'com.pinus.pinusMobile',
   };
 
   it('normalizes valid configuration', () => {
@@ -16,6 +18,8 @@ describe('validateEnvironment', () => {
       ...valid,
       PORT: 3000,
       LOG_LEVEL: 'info',
+      GOOGLE_AUTH_AUDIENCES: ['google-one', 'google-two'],
+      APPLE_AUTH_AUDIENCES: ['com.pinus.pinusMobile'],
     });
   });
 
@@ -27,6 +31,8 @@ describe('validateEnvironment', () => {
     'JWT_REFRESH_SECRET',
     'JWT_ISSUER',
     'JWT_AUDIENCE',
+    'GOOGLE_AUTH_AUDIENCES',
+    'APPLE_AUTH_AUDIENCES',
   ])('rejects invalid %s', (key) => {
     expect(() => validateEnvironment({ ...valid, [key]: '' })).toThrow();
   });

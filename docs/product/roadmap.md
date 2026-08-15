@@ -306,20 +306,25 @@ Allow users to authenticate and manage sessions and account identity.
 
 ## Goal
 
-Allow two users to establish and manage a couple relationship.
+Allow two users to create or join a couple-owned Shared Space and manage the couple relationship.
 
 ## Main Activities
 
+- Create a couple-owned Shared Space.
+- Select Path, Orbit, or Bloom before invitation generation.
 - Create invitation.
+- Associate the invitation with the Shared Space and its selected World Style.
 - Share invitation code.
 - Support invitation deep links.
 - View invitation.
+- Preview the selected World Style before acceptance.
 - Accept invitation.
 - Reject invitation.
 - Cancel invitation.
 - View partner profile.
 - View couple profile.
 - Unlink couple.
+- Ensure both connected users experience the same active World Style.
 
 ## Owner Decisions
 
@@ -340,6 +345,7 @@ Allow two users to establish and manage a couple relationship.
 
 ## Deliverables
 
+- Shared Space creation and World Style selection flow.
 - Invitation API.
 - Mobile invitation flow.
 - Couple membership model.
@@ -356,6 +362,8 @@ Allow two users to establish and manage a couple relationship.
 ## Exit Criteria
 
 - Two users can connect.
+- The creating user selects World Style before invitation generation.
+- The invited user previews and joins the invitation's existing World Style without selecting another one.
 - A user cannot invite themselves.
 - Invitations cannot be reused.
 - Duplicate acceptance is handled safely.
@@ -369,10 +377,12 @@ Allow two users to establish and manage a couple relationship.
 
 ## Goal
 
-Build the primary Pinus experience: a shared map with location-based Pins.
+Build the primary Pinus experience as a Living Canvas centered on a Living Shared Map with location-based Pins representing the couple's Shared Space.
 
 ## Main Activities
 
+- Establish the Living Shared Map as the primary representation of the couple's Shared Space.
+- Preserve Shared Space context across Pin inspection and Map/Timeline transitions when practical.
 - Display the map.
 - Display current location.
 - Display Pin markers.
@@ -427,6 +437,7 @@ Build the primary Pinus experience: a shared map with location-based Pins.
 
 ## Exit Criteria
 
+- The map represents the couple's accumulated shared places and content rather than generic travel or location discovery.
 - A connected user can create a Pin.
 - The partner can see it.
 - Markers appear at correct locations.
@@ -456,6 +467,10 @@ Allow couples to attach images to Pins and browse their relationship history.
 - Group timeline by month or year.
 - Filter timeline by Pin type.
 - Open Pin detail from timeline.
+- Preserve Timeline as the temporal view of the same Pins represented spatially on the Living Shared Map.
+- Keep Timeline items compact and scannable using a chronological Year → Month → Pin moments hierarchy.
+- Preserve selected Pin and relevant filtering context between Map and Timeline when practical.
+- Preserve Secret and Time Capsule lock semantics in Timeline.
 
 ## Owner Decisions
 
@@ -498,6 +513,7 @@ Allow couples to attach images to Pins and browse their relationship history.
 - Media is uploaded directly to private storage.
 - Users cannot attach media to another couple's Pin.
 - Timeline ordering is correct.
+- Timeline and Map resolve to the same Shared Space Pin content rather than independent content models.
 - Broken images do not crash the application.
 - Failed and orphaned uploads are handled.
 
@@ -801,7 +817,6 @@ Validate user behavior with a controlled group before public release.
 
 - Reactions.
 - Comments.
-- Question Pin.
 - Partner responses.
 - Shared journal.
 
@@ -827,10 +842,12 @@ Validate user behavior with a controlled group before public release.
 
 - Increased storage.
 - Video recap.
-- Custom map styles.
+- Additional custom map treatments beyond the approved Path, Orbit, and Bloom World Styles.
 - Advanced data export.
 - Relationship photobook.
 - Premium widgets.
+
+Path, Orbit, Bloom, and switching between them are not premium-restricted. Any future monetization of additional styles or map treatments requires a separate approved product decision.
 
 ## Platform Expansion
 

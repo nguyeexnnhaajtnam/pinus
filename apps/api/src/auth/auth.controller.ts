@@ -13,6 +13,11 @@ import {
   SignOutResultDto,
   TokenPairDto,
 } from './dto/auth.dto';
+import {
+  AppleSocialAuthRequestDto,
+  GoogleSocialAuthRequestDto,
+} from './dto/social-auth.dto';
+import { SocialAuthService } from './social/social-auth.service';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -20,7 +25,32 @@ export class AuthController {
   constructor(
     private readonly auth: AuthService,
     private readonly limiter: AuthRateLimiter,
+    private readonly socialAuth: SocialAuthService,
   ) {}
+
+  @Post('social/google')
+  @UseGuards(AuthIpRateGuard)
+  @ApiResponse({ status: 201, type: TokenPairDto })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @ApiResponse({ status: 401, description: 'Authentication failed' })
+  @ApiResponse({ status: 429, description: 'Too many requests' })
+  @ApiResponse({ status: 503, description: 'Provider temporarily unavailable' })
+  socialGoogle(
+    @Body() body: GoogleSocialAuthRequestDto,
+  ): Promise<TokenPairDto> {
+    return this.socialAuth.authenticateGoogle(body.identityToken);
+  }
+
+  @Post('social/apple')
+  @UseGuards(AuthIpRateGuard)
+  @ApiResponse({ status: 201, type: TokenPairDto })
+  @ApiResponse({ status: 400, description: 'Invalid request' })
+  @ApiResponse({ status: 401, description: 'Authentication failed' })
+  @ApiResponse({ status: 429, description: 'Too many requests' })
+  @ApiResponse({ status: 503, description: 'Provider temporarily unavailable' })
+  socialApple(@Body() body: AppleSocialAuthRequestDto): Promise<TokenPairDto> {
+    return this.socialAuth.authenticateApple(body.identityToken, body.rawNonce);
+  }
 
   @Post('refresh')
   @ApiResponse({ status: 201, type: TokenPairDto })

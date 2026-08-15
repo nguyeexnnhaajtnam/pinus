@@ -34,19 +34,20 @@ export class AuthService {
       },
     });
     if (!account) throw new AuthenticationException();
+    return this.issueForUser(account.userId);
+  }
+
+  async issueForUser(userId: string): Promise<TokenPair> {
     let pair: TokenPair | undefined;
-    await this.sessions.createForUser(
-      account.userId,
-      async (sessionId, expiresAt) => {
-        pair = await this.tokens.issuePair({
-          userId: account.userId,
-          sessionId,
-          version: 0,
-          sessionExpiresAt: expiresAt,
-        });
-        return this.tokens.hashRefreshToken(pair.refreshToken);
-      },
-    );
+    await this.sessions.createForUser(userId, async (sessionId, expiresAt) => {
+      pair = await this.tokens.issuePair({
+        userId,
+        sessionId,
+        version: 0,
+        sessionExpiresAt: expiresAt,
+      });
+      return this.tokens.hashRefreshToken(pair.refreshToken);
+    });
     if (!pair) throw new AuthenticationException();
     return pair;
   }
